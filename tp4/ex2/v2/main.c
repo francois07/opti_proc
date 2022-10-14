@@ -4,7 +4,7 @@
 
 #define HEIGHT 10
 #define WIDTH 10
-#define SIZE 10 * 10
+#define SIZE 1000 * 1000
 
 int offsets[][2] = {
     {-1, -1},
@@ -18,19 +18,19 @@ int offsets[][2] = {
     {1, 1},
 };
 
-double neighborhood(int *A, size_t idx)
+float neighborhood(int *A, size_t idx)
 {
-    double sum = 0;
+    float sum = 0;
 
     for (int i = 0; i < 9; i++)
     {
         sum += (float)A[idx + (offsets[i][0] * WIDTH) + offsets[i][1]];
     }
 
-    return sum / 9;
+    return (float)(sum / 9.0f);
 }
 
-void print_float_matrix(float *A, size_t width, size_t height)
+void print_float_matrix(float *M, size_t width, size_t height)
 {
     for (int i = 0; i < width * height; i++)
     {
@@ -38,7 +38,7 @@ void print_float_matrix(float *A, size_t width, size_t height)
         {
             printf("\n");
         }
-        printf("%f ", A[i]);
+        printf("%f ", (float)M[i]);
     }
     printf("\n");
 }
@@ -48,7 +48,7 @@ int main(int argc, char const *argv[])
     srand(time(NULL));
 
     int *A = malloc(SIZE * sizeof(int));
-    float *B = malloc(SIZE * sizeof(int));
+    float *B = malloc(SIZE * sizeof(float));
 
     // Initialisation
     for (int i = 1; i < SIZE - 1; i++)
@@ -56,17 +56,15 @@ int main(int argc, char const *argv[])
         *(A + i) = rand();
     }
 
-    // Version 1
-    for (int i = 1; i < WIDTH - 1; i++)
+    // Version 2
+    for (int i = 1; i < HEIGHT - 1; i++)
     {
         for (int j = 1; j < WIDTH - 1; j++)
         {
             int idx = i * WIDTH + j;
-            *(B + idx) = neighborhood(A, idx);
+            B[idx] = neighborhood(A, idx);
         }
     }
-
-    print_float_matrix(B, WIDTH, HEIGHT);
 
     free(A);
     free(B);

@@ -18,9 +18,9 @@ int main(int argc, char const *argv[])
     // Version 1
     for (int j = 0; j < WIDTH; j++)
     {
-        for (int i = 0; i < SIZE; i += 1000)
+        for (int i = 0; i < HEIGHT; i++)
         {
-            int idx = i + j;
+            int idx = i * WIDTH + j;
             *(B + idx) = *(A + idx);
         }
     }

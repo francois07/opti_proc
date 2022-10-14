@@ -15,12 +15,12 @@ int main(int argc, char const *argv[])
         *(A + i) = 0;
     }
 
-    // Version 1
-    for (int i = 0; i < SIZE; i += 1000)
+    // Version 2
+    for (int i = 0; i < HEIGHT; i++)
     {
         for (int j = 0; j < WIDTH; j++)
         {
-            int idx = i + j;
+            int idx = i * WIDTH + j;
             *(B + idx) = *(A + idx);
         }
     }

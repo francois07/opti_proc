@@ -16,7 +16,7 @@ int main(int argc, char const *argv[])
         *(A + i) = 0;
     }
 
-    // Version 1
+    // Version 3
     memcpy(B, A, SIZE * sizeof(int));
 
     free(A);
