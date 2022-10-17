@@ -1,6 +1,6 @@
 ; Partie 1
 ; Auteurs : Hugo MICHEL et François SOULIÉ
-; Nombre de cycles sans Forwarding : 10155
+; Nombre de cycles sans Forwarding : 7383 (3072 RAWs)
 ; Nombre de cycles avec Forwarding : 5424 (36 RAWs)
 
 .data
@@ -28,21 +28,15 @@ colonnesA:
     lw r22, clear(r0)
     lw r23, clear(r0)
     
-lw r5, clear(r0)
-lignesH:
     ; I_n
-    addi r9, r5, #-1 ; offset[0] = lignesH - 1
-
-    add r11, r3, r9 ; lignesA + offset[0]
+    addi r11, r3, #-1 ; lignesA + offset[0]
     addi r12, r4, #-1 ; colonnesA + offset[1]
 
     mult r1, r11 ; sizeA * r11
     mflo r13
 
     add r14, r13, r12 ; idxA
-    mult r5, r2 ; lignesH * sizeH
-    mflo r16
-    add r17, r16, r6 ; idxH
+    lw r17, clear(r0) ; idxH
 
     mult r14, r26 ; Word donc adresse x8
     mflo r14
@@ -95,8 +89,101 @@ lignesH:
     add r22, r22, r20 ; sx += I_n * Hx_n
     add r23, r23, r21 ; sy += I_n * Hy_n
 
-addi r5, r5, #1
-bne r5, r2, lignesH
+    addi r14, r14, #48
+    add r17, r17, r26
+
+    lw r15, A(r14) ; I_n
+    lw r18, hx(r17) ; Hx
+    lw r19, hy(r17) ; Hy
+
+    mult r15, r18 ; I_n * Hx_n
+    mflo r20
+
+    mult r15, r19 ; I_n * Hy_n
+    mflo r21
+
+    add r22, r22, r20 ; sx += I_n * Hx_n
+    add r23, r23, r21 ; sy += I_n * Hy_n
+
+    add r14, r14, r26
+    add r17, r17, r26
+
+    lw r15, A(r14) ; I_n
+    lw r18, hx(r17) ; Hx
+    lw r19, hy(r17) ; Hy
+
+    mult r15, r18 ; I_n * Hx_n
+    mflo r20
+
+    mult r15, r19 ; I_n * Hy_n
+    mflo r21
+
+    add r22, r22, r20 ; sx += I_n * Hx_n
+    add r23, r23, r21 ; sy += I_n * Hy_n
+
+    add r14, r14, r26
+    add r17, r17, r26
+
+    lw r15, A(r14) ; I_n
+    lw r18, hx(r17) ; Hx
+    lw r19, hy(r17) ; Hy
+
+    mult r15, r18 ; I_n * Hx_n
+    mflo r20
+
+    mult r15, r19 ; I_n * Hy_n
+    mflo r21
+
+    add r22, r22, r20 ; sx += I_n * Hx_n
+    add r23, r23, r21 ; sy += I_n * Hy_n
+
+    addi r14, r14, #48
+    add r17, r17, r26
+
+    lw r15, A(r14) ; I_n
+    lw r18, hx(r17) ; Hx
+    lw r19, hy(r17) ; Hy
+
+    mult r15, r18 ; I_n * Hx_n
+    mflo r20
+
+    mult r15, r19 ; I_n * Hy_n
+    mflo r21
+
+    add r22, r22, r20 ; sx += I_n * Hx_n
+    add r23, r23, r21 ; sy += I_n * Hy_n
+
+    add r14, r14, r26
+    add r17, r17, r26
+
+    lw r15, A(r14) ; I_n
+    lw r18, hx(r17) ; Hx
+    lw r19, hy(r17) ; Hy
+
+    mult r15, r18 ; I_n * Hx_n
+    mflo r20
+
+    mult r15, r19 ; I_n * Hy_n
+    mflo r21
+
+    add r22, r22, r20 ; sx += I_n * Hx_n
+    add r23, r23, r21 ; sy += I_n * Hy_n
+
+    add r14, r14, r26
+    add r17, r17, r26
+
+    lw r15, A(r14) ; I_n
+    lw r18, hx(r17) ; Hx
+    lw r19, hy(r17) ; Hy
+
+    mult r15, r18 ; I_n * Hx_n
+    mflo r20
+
+    mult r15, r19 ; I_n * Hy_n
+    mflo r21
+
+    add r22, r22, r20 ; sx += I_n * Hx_n
+    add r23, r23, r21 ; sy += I_n * Hy_n
 
 mult r3, r1 ; lignesA * sizeA
 mflo r24
