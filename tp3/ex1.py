@@ -19,33 +19,12 @@ for lignesA in range(1, sizeA-1):
         sx = 0
         sy = 0
         for lignesH in range(sizeH):
-            offset = (lignesH-1, -1)
-            idxA = (lignesA + offset[0])*(sizeA) + (colonnesA + offset[1])
-            idxH = lignesH*sizeH
-
-            I_n = A[idxA]
-            Hx0 = Hx[idxH]
-            Hy0 = Hy[idxH]
-            sx += I_n * Hx0
-            sy += I_n * Hy0
-
-            idxA += 1
-            idxH += 1
-
-            I_n = A[idxA]
-            Hx0 = Hx[idxH]
-            Hy0 = Hy[idxH]
-            sx += I_n * Hx0
-            sy += I_n * Hy0
-
-            idxA += 1
-            idxH += 1
-
-            I_n = A[idxA]
-            Hx0 = Hx[idxH]
-            Hy0 = Hy[idxH]
-            sx += I_n * Hx0
-            sy += I_n * Hy0
+            for colonnesH in range(sizeH):
+                offset = (lignesH-1, colonnesH-1)
+                I_n = A[(lignesA + offset[0])*(sizeA) +
+                        (colonnesA + offset[1])]
+                sx += I_n * Hx[lignesH*sizeH + colonnesH]
+                sy += I_n * Hy[lignesH*sizeH + colonnesH]
 
         fx[lignesA*sizeA + colonnesA] = sx
         fy[lignesA*sizeA + colonnesA] = sy

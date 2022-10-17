@@ -1,6 +1,6 @@
 ; Partie 1
 ; Auteurs : Hugo MICHEL et François SOULIÉ
-; Nombre de cycles sans Forwarding : 19623
+; Nombre de cycles sans Forwarding : 19623 (10416 RAWs)
 ; Nombre de cycles avec Forwarding : 9207
 
 .data
