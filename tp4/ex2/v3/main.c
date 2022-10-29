@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <string.h>
 #include <time.h>
 
 #define HEIGHT 1000
@@ -31,24 +32,27 @@ float neighborhood(int *A, size_t idx)
 
 int main(int argc, char const *argv[])
 {
+    int *A = (int *)calloc(SIZE, sizeof(int));
+    float *B = (float *)calloc(SIZE, sizeof(int));
+
     srand(time(NULL));
 
-    int *A = malloc(SIZE * sizeof(int));
-    float *B = malloc(SIZE * sizeof(float));
-
     // Initialisation
-    for (int i = 1; i < SIZE - 1; i++)
+    for (int i = 0; i < SIZE; i++)
     {
-        *(A + i) = rand() % 50;
+        A[i] = rand() % 50;
     }
 
-    // Version 2
+    // Version 3
     for (int i = 1; i < HEIGHT - 1; i++)
     {
         for (int j = 1; j < WIDTH - 1; j++)
         {
             int idx = i * WIDTH + j;
-            B[idx] = neighborhood(A, idx);
+            float res = neighborhood(A, idx);
+            float *p = &res;
+
+            memcpy(B + idx, p, sizeof(int));
         }
     }
 
